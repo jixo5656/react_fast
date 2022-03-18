@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root">
+      <h1>1</h1>
+      <h3>2</h3>
+      <h5>3</h5>
+    </div>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+      const element = (
+        <React.Fragment
+          className="box"
+          children={[<h1>hi</h1>, <h3>hi</h3>, <h5>hi5</h5>]}
+        ></React.Fragment>
+      );
+      ReactDOM.render(element, rootElement);
+    </script>
+  </body>
+</html>
