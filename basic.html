@@ -18,11 +18,14 @@
     <script type="text/babel">
       const rootElement = document.getElementById("root");
       const element = (
-        <React.Fragment
-          className="box"
-          children={[<h1>hichange</h1>, <h3>hi</h3>, <h5>hi5</h5>]}
-        ></React.Fragment>
+        //Frangment React.Fragment
+        <>  
+            <h1>hichange</h1> 
+            <h3>hi</h3> 
+            <h5>hi5</h5>
+        </>        
       );
+      console.log(element);
       ReactDOM.render(element, rootElement);
     </script>
   </body>
