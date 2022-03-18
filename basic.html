@@ -17,15 +17,34 @@
     </div>
     <script type="text/babel">
       const rootElement = document.getElementById("root");
+      
+      //react는 대문자시작
+      //cuntum element
+      const Paint = ({title, description, children}) => {
+        return(        
+            <>  
+                <h1>{title}</h1> 
+                <h3>{description}</h3>
+                {children}
+            </>        
+        );
+      }
+      const Good=()=>
+          <h3>Good</h3>;
+      
       const element = (
-        //Frangment React.Fragment
-        <>  
-            <h1>hichange</h1> 
-            <h3>hi</h3> 
-            <h5>hi5</h5>
-        </>        
-      );
-      console.log(element);
+          <>
+            <Paint title="good" description="good">
+              <h1>hi</h1>
+              <h1>hi</h1>
+              <h1>hi</h1>
+              <Paint title="BAD" description="bad"></Paint>
+              <Paint title="soso" description="soso"></Paint>
+              <Good />
+            </Paint>
+            <Paint title="BAD" description="bad"></Paint>
+          </>
+      )
       ReactDOM.render(element, rootElement);
     </script>
   </body>
