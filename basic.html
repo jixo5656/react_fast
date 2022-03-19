@@ -20,32 +20,34 @@
       
       //react는 대문자시작
       //cuntum element
-      const Paint = ({title, description, children}) => {
-        return(        
-            <>  
-                <h1>{title}</h1> 
-                <h3>{description}</h3>
-                {children}
-            </>        
-        );
+      const Text = ({text}) => {
+        if(text.charAt(0) === text.charAt(0).toUpperCase()){
+          return <h1>{text}</h1>;
+        }
+        else{
+          return <h3>{text}</h3>;
+        }
       }
       const Good=()=>
           <h3>Good</h3>;
       
+
+      function Number({number, selected}){
+        return selected ? <h1>{number}</h1> : <h3>{number}</h3>
+      }
       const element = (
           <>
-            <Paint title="good" description="good">
-              <h1>hi</h1>
-              <h1>hi</h1>
-              <h1>hi</h1>
-              <Paint title="BAD" description="bad"></Paint>
-              <Paint title="soso" description="soso"></Paint>
-              <Good />
-            </Paint>
-            <Paint title="BAD" description="bad"></Paint>
+            {[1,2,3,4,5,6,7,8,9,10].map((number)=> (
+              <Number number={number} selected={number===3} />
+            ))}
           </>
       )
       ReactDOM.render(element, rootElement);
     </script>
+    <style>
+      .title{
+        color:"red"
+      }
+    </style>
   </body>
 </html>
