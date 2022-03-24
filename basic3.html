@@ -17,35 +17,41 @@
 
         const state = {keyword: "" , typing: false, result: ""};
 
-        const App=()=>{
+        const App=()=>{            
+            const [keyword, setKeyword] = React.useState(() => {
+                console.log("initialize");
+                return window.localStorage.getItem("keyword")
+            });
+            const [result, setResult] = React.useState("");
+            const [typing, setTyping] = React.useState(false);
+            //React.use로시작하는걸 hook이라고부름
+            console.log("render");
+            React.useEffect(()=>{
+                console.log("effect");
+                window.localStorage.setItem("keyword",keyword);
+            }, []);            //2번째인자 배열안에 들어온값이 바뀔때 useEffect가실행
+
             function handleChange(event){
-                setState({typing: true, keyword:event.target.value});
+                setKeyword(event.target.value);
+                setTyping(true);
             }
             function handleClick(){
-                setState({
-                    typing: false,
-                    result: `We find result of ${state.keyword}`
-                })
+                setTyping(false);
+                setResult(`we find result of ${keyword}`)
             }
             return(
                 <>
-                    <input onChange={handleChange} />
+                    <input onChange={handleChange} value={keyword}/>
                     <button onClick={handleClick}>search</button>
                     <p>
-                        {state.typing ? `Looking for ${state.keyword} ...` : state.result}
+                       {typing ? `Looking for ${keyword}...` : result}
                     </p>
                 </>
             )
         };
 
-        function setState(newState){
-            Object.assign(state, newState);
-            render();
-        }
-        function render(){
-            ReactDOM.render(<App />, rootElement);
-        }
-        render();
+        ReactDOM.render(<App />, rootElement);
+        
     </script>
     </body>
 </html>
