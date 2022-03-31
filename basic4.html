@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+    <script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+
+        const Child = () =>{
+            console.log("Child render start");
+            const [text, setText] = React.useState(()=>{
+                console.log("Child useState");
+                return "";
+            });
+
+            React.useEffect(()=>{
+                console.log("Child no deps");
+
+                return () => {
+                    console.log("Child [Cleanup] no deps");
+                }
+            });
+            //계속 호출
+            React.useEffect(()=>{
+                console.log("Child empty deps");
+
+                return () => {
+                    console.log("Child [Cleanup] empty deps");
+                }
+            },[]);
+            //처음에한번만호출
+            React.useEffect(()=>{
+                console.log("Child [text]]");
+
+                return () => {
+                    console.log("Child [Cleanup] , [text]");
+                }
+            },[text]);
+            //text가 바뀔때호출
+
+            function handleChange(event){
+                setText(event.target.value);
+            }
+
+            const element=(
+                <>
+                    <input onChange={handleChange}/>
+                    <p>{text}</p>                   
+                </>
+            );
+            
+            console.log("Child render end");
+            return element;
+        }
+
+        const App = ()=>{
+            console.log("App render start");
+            const [show, setShow] = React.useState(()=>{
+                console.log("App useState");
+                return false;
+            });
+
+            React.useEffect(()=>{
+                console.log("no deps");
+
+                return () => {
+                    console.log("[Cleanup] no deps");
+                }
+            });
+            React.useEffect(()=>{
+                console.log("empty deps");
+
+                return () => {
+                    console.log("[Cleanup] empty deps");
+                }
+            },[]);
+            React.useEffect(()=>{
+                console.log("show deps");
+
+                return () => {
+                    console.log("[Cleanup] show deps");
+                }
+            },[show]);
+
+            function handleClick(){
+                setShow(prev => !prev);
+            }
+
+            console.log("App render end");
+
+            return (
+                <>
+                    <button onClick={handleClick}>Search</button>
+                    {show ? <>
+                        <Child/>
+                    </> : null}
+                    
+                </>
+            );
+        }
+        
+        ReactDOM.render(<App />, rootElement);
+    </script>
+
+    </body>
+</html>
